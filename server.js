@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongodb = require('./data/database');
+const mongodb = require('./src/data/database');
 
 const app = express();
 
@@ -20,7 +20,7 @@ app
     );
     next();
   })
-  .use('/', require('./routes'));
+  .use('/', require('./src/routes'));
 
 mongodb.initDb((err) => {
   if (err) {
