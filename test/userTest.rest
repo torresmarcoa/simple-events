@@ -1,0 +1,13 @@
+###Create new user
+POST http://localhost:3000/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "fname": "Chinonso",
+    "lname": "Okafor",
+    "email": "chinonso.okafor@example.com",
+    "phone": 8034567890,
+    "role": "organizer"
+}
+
+###Update user

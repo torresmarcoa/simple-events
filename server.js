@@ -18,8 +18,8 @@ app
     next();
   })
   .use('/', require('./src/routes'))
-  .use('/user', require('./src/routes/userRoutes'))
-  .use('/event', require('./src/routes/eventRoutes'));
+  .use('/users', require('./src/routes/userRoutes'))
+  .use('/events', require('./src/routes/eventRoutes'));
 
 mongodb.initDb((err) => {
   if (err) {

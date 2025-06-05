@@ -5,5 +5,4 @@ router.post('/', eventController.createEvent);
 
 router.put('/:id', eventController.updateEvent);
 
-
 module.exports = router;

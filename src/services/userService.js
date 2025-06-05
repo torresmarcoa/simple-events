@@ -1,7 +1,7 @@
-const User = require('../models/userModel')
-const createError = require("http-errors");
-const mongoose = require("mongoose");
-const httpStatusCodes = require('../utils/httpStatusCodes')
+const User = require('../models/userModel');
+const createError = require('http-errors');
+const mongoose = require('mongoose');
+const httpStatusCodes = require('../utils/httpStatusCodes');
 
 async function createUser(data) {
   try {
@@ -10,7 +10,7 @@ async function createUser(data) {
     });
 
     if (existingUser) {
-      throw createError(httpStatusCodes.CONFLICT, "User already exists");
+      throw createError(httpStatusCodes.CONFLICT, 'User already exists');
     }
 
     const result = await User.create(data);
@@ -21,23 +21,23 @@ async function createUser(data) {
 }
 
 async function updateUser(id, data) {
-    try {
-      const user = await User.findByIdAndUpdate(id, data, { new: true });
-  
-      if (!user) {
-        throw createError(httpStatusCodes.NOT_FOUND, "User does not exist");
-      }
-      return user;
-    } catch (error) {
-      if (error instanceof mongoose.CastError) {
-        throw createError(httpStatusCodes.BAD_REQUEST, "Invalid user ID");
-        return;
-      }
-      throw error;
+  try {
+    const user = await User.findByIdAndUpdate(id, data, { new: true });
+
+    if (!user) {
+      throw createError(httpStatusCodes.NOT_FOUND, 'User does not exist');
     }
+    return user;
+  } catch (error) {
+    if (error instanceof mongoose.CastError) {
+      throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid user ID');
+      return;
+    }
+    throw error;
   }
+}
 
 module.exports = {
-    createUser,
-    updateUser
-}
+  createUser,
+  updateUser
+};
