@@ -10,4 +10,4 @@ content-type: application/json
     "role": "organizer"
 }
 
-###Update user
+### Update existing user

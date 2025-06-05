@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const eventController = require('../controllers/eventController');
+const { eventValidationRules, validateEvent } = require('../middlewares/eventValidator');
 
-router.post('/', eventController.createEvent);
+router.post('/', eventValidationRules(), validateEvent, eventController.createEvent);
 
-router.put('/:id', eventController.updateEvent);
+router.put('/:id', eventValidationRules(), validateEvent, eventController.updateEvent);
 
 module.exports = router;

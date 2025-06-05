@@ -21,6 +21,19 @@ app
   .use('/users', require('./src/routes/userRoutes'))
   .use('/events', require('./src/routes/eventRoutes'));
 
+
+//Error handler
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.send({
+    error: {
+      status: err.status || 500,
+      message: err.message
+    }
+  });
+});
+
+//initialize db and app
 mongodb.initDb((err) => {
   if (err) {
     console.log(err);
