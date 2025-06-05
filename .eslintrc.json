@@ -1,15 +1,16 @@
 {
-    "extends": ["prettier"],
-    "plugins": ["prettier"],
-    "env": {
+  "extends": ["prettier"],
+  "plugins": ["prettier"],
+  "env": {
     "es2021": true,
     "node": true
-    },
-    "parserOptions": {
+  },
+  "parserOptions": {
     "ecmaVersion": 12,
     "sourceType": "module"
-    },
-    "rules": {
-        "no-unused-vars": "warn"
-    }
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "prettier/prettier": "error"
+  }
 }

@@ -7,9 +7,7 @@ let database;
 
 const initDb = (callback) => {
   if (!URI) {
-    const uriError = new Error(
-      'MongoDB URI is missing in environment variables',
-    );
+    const uriError = new Error('MongoDB URI is missing in environment variables');
     console.error(uriError.message);
     return callback(uriError);
   }
@@ -34,9 +32,7 @@ const initDb = (callback) => {
 
 const getDatabase = () => {
   if (!database) {
-    throw new Error(
-      'Database not initialized. Did you forget to call initDb()?',
-    );
+    throw new Error('Database not initialized. Did you forget to call initDb()?');
   }
   return database;
 };
