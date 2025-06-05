@@ -12,16 +12,28 @@ app
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
       'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept, Z-Key, Authorization',
+      'Origin, X-Requested-With, Content-Type, Accept, Z-Key, Authorization'
     );
-    res.setHeader(
-      'Access-Control-Allow-Methods',
-      'GET, POST, PUT, DELETE, OPTIONS',
-    );
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
   })
-  .use('/', require('./src/routes'));
+  .use('/', require('./src/routes'))
+  .use('/users', require('./src/routes/userRoutes'))
+  .use('/events', require('./src/routes/eventRoutes'));
 
+
+//Error handler
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.send({
+    error: {
+      status: err.status || 500,
+      message: err.message
+    }
+  });
+});
+
+//initialize db and app
 mongodb.initDb((err) => {
   if (err) {
     console.log(err);
