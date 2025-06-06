@@ -6,4 +6,8 @@ router.post('/', eventValidationRules(), validateEvent, eventController.createEv
 
 router.put('/:id', eventValidationRules(), validateEvent, eventController.updateEvent);
 
+router.get('/', eventController.getAllEvents);
+
+router.get('/:id', eventController.getEventById);
+
 module.exports = router;
