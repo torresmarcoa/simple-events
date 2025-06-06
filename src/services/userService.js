@@ -3,6 +3,43 @@ const createError = require('http-errors');
 const mongoose = require('mongoose');
 const httpStatusCodes = require('../utils/httpStatusCodes');
 
+async function getAllUsers() {
+  try {
+    const users = await User.find()
+      .sort({ fname: 1 }); // Sort by first name ascending 
+    return users;
+  } catch (error) {
+    throw createError(httpStatusCodes.INTERNAL_SERVER_ERROR, 'Error fetching users');
+  }
+}
+
+async function getUserById(id) {
+  try {
+    const user = await User.findById(id);
+
+    if (!user) {
+      throw createError(httpStatusCodes.NOT_FOUND, 'User does not exist');
+    }
+    return user;
+  } catch (error) {
+    if (error instanceof mongoose.CastError) {
+      throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid user ID');
+    }
+    throw error;
+  }
+}
+
+async function getUsersByRole(role) {
+  try {
+    const users = await User.find({ role: role })
+      .sort({ fname: 1 }); // Sort by first name ascending  
+
+    return users;
+  } catch (error) {
+    throw createError(httpStatusCodes.INTERNAL_SERVER_ERROR, 'Error fetching users by role');
+  }
+}
+
 async function createUser(data) {
   try {
     const existingUser = await User.findOne({
@@ -31,7 +68,6 @@ async function updateUser(id, data) {
   } catch (error) {
     if (error instanceof mongoose.CastError) {
       throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid user ID');
-      return;
     }
     throw error;
   }
@@ -39,5 +75,8 @@ async function updateUser(id, data) {
 
 module.exports = {
   createUser,
-  updateUser
+  updateUser,
+  getAllUsers,
+  getUserById,
+  getUsersByRole
 };
