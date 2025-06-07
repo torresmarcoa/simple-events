@@ -68,7 +68,7 @@ async function updateEvent(req, res, next) {
   };
 
   try {
-    await eventService.updateUser(id, event);
+    await eventService.updateEvent(id, event);
     res.status(httpStatusCodes.NO_CONTENT).send();
   } catch (error) {
     next(error);

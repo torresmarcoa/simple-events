@@ -35,8 +35,8 @@ async function getEventById(id) {
 async function createEvent(data) {
   try {
     const existingEvent = await Event.findOne({
-      dateTime: req.body.dateTime,
-      address: req.body.address
+      dateTime: data.dateTime,
+      address: data.address
     });
 
     if (existingEvent) {
