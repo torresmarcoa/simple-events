@@ -146,7 +146,7 @@ async function deleteEvent(req, res, next) {
   }
 
   try {
-    const deleted = await eventService.findByIdAndDelete(id);
+    const deleted = await eventService.deleteEvent(id);
     if (!deleted) {
       return res
         .status(httpStatusCodes.NOT_FOUND)

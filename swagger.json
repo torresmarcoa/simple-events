@@ -69,7 +69,7 @@
                 },
                 "role": {
                   "type": "string",
-                  "example": "recruiter"
+                  "example": "organizer"
                 }
               }
             }
@@ -203,14 +203,8 @@
         "parameters": [
           {
             "name": "roleName",
+            "description": "User role to filter by (e.g. organizer, attendee)",
             "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "role",
-            "in": "query",
-            "description": "User role to filter by (e.g., admin, applicant, recruiter)",
             "required": true,
             "type": "string"
           }
@@ -252,7 +246,7 @@
                 },
                 "organizer": {
                   "type": "string",
-                  "example": "EventCo"
+                  "example": "684169583bd02f1fef2e7437"
                 },
                 "capacity": {
                   "type": "number",
@@ -263,18 +257,12 @@
                   "example": 150
                 },
                 "performers": {
-                  "type": "array",
-                  "example": [
-                    "Band A",
-                    "Artist B"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
+                  "type": "string",
+                  "example": "performer 1"
                 },
                 "eventType": {
                   "type": "string",
-                  "example": "Concert"
+                  "example": "concert"
                 }
               }
             }
@@ -336,7 +324,7 @@
                 },
                 "organizer": {
                   "type": "string",
-                  "example": "Updated Organizer"
+                  "example": "684169583bd02f1fef2e7437"
                 },
                 "capacity": {
                   "type": "number",
@@ -347,13 +335,8 @@
                   "example": 200
                 },
                 "performers": {
-                  "type": "array",
-                  "example": [
-                    "Performer X"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
+                  "type": "string",
+                  "example": "performer x"
                 },
                 "eventType": {
                   "type": "string",

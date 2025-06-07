@@ -1,0 +1,35 @@
+### Get all events
+GET http://localhost:3000/events/
+
+###Create new event
+POST http://localhost:3000/events/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Lagos Tech Meetup 2025",
+    "dateTime": "2025-07-12T14:00:00Z",
+    "address": "Landmark Event Centre, Victoria Island, Lagos",
+    "organizer": "684169583bd02f1fef2e7437",
+    "capacity": 300,
+    "assistantsNumber": 12,
+    "performers": "DJ Spinall, Falz",
+    "eventType": "conference"
+}
+
+###Update event
+PUT http://localhost:3000/events/68441aeabbe7fba56cd10692 HTTP/1.1
+content-type: application/json 
+
+{
+    "name": "Calabar Tech Meetup 2025",
+    "dateTime": "2026-07-12T14:00:00Z",
+    "address": "Landmark Event Centre, Victoria Island, Calabar",
+    "organizer": "684169583bd02f1fef2e7437",
+    "capacity": 300,
+    "assistantsNumber": 12,
+    "performers": "DJ Spinall, Falz",
+    "eventType": "conference"
+}
+
+###Delete event
+DELETE http://localhost:3000/events/68441aeabbe7fba56cd10692 HTTP/1.1

@@ -42,12 +42,7 @@ async function getUsersByRole(req, res, next) {
   //#swagger.tags = ['User']
   /* #swagger.summary = 'Get users by role' */
   /* #swagger.description = 'Retrieves a list of users that match the specified role.' */
-  /* #swagger.parameters['role'] = {
-          in: 'query',
-          description: 'User role to filter by (e.g., admin, applicant, recruiter)',
-          required: true,
-          type: 'string'
-    } */
+  const role = req.params.roleName;
   if (!role) {
     return res.status(httpStatusCodes.BAD_REQUEST).json({
       status: httpStatusCodes.BAD_REQUEST,
@@ -147,13 +142,8 @@ async function deleteUser(req, res, next) {
           type: 'string'
     } */
   const id = req.params.id;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(httpStatusCodes.BAD_REQUEST).json({ success: false, message: 'Invalid ID' });
-  }
-
   try {
-    const deleted = await userService.findByIdAndDelete(id);
+    const deleted = await userService.deleteUser(id);
     if (!deleted) {
       return res
         .status(httpStatusCodes.NOT_FOUND)
