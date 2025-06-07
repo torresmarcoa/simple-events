@@ -21,7 +21,6 @@ app
   .use('/users', require('./src/routes/userRoutes'))
   .use('/events', require('./src/routes/eventRoutes'));
 
-
 //Error handler
 app.use((err, req, res, next) => {
   res.status(err.status || 500);

@@ -44,9 +44,8 @@ async function getUsersByRole(req, res, next) {
     });
   } catch (error) {
     next(error);
-  } 
+  }
 }
-
 
 async function createUser(req, res, next) {
   const user = {
@@ -82,10 +81,22 @@ async function updateUser(req, res, next) {
   }
 }
 
+async function deleteUser(req, res, next) {
+  const id = req.params.id;
+
+  try {
+    await userService.deleteUser(id);
+    res.status(httpStatusCodes.NO_CONTENT).send();
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   createUser,
   updateUser,
   getAllUsers,
   getUserById,
-  getUsersByRole
+  getUsersByRole,
+  deleteUser
 };

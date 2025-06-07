@@ -16,7 +16,7 @@ content-type: application/json
     "eventType": "conference"
 }
 
-###Update user
+###Update event
 PUT http://localhost:3000/events/68441aeabbe7fba56cd10692 HTTP/1.1
 content-type: application/json 
 
@@ -30,3 +30,6 @@ content-type: application/json
     "performers": "DJ Spinall, Falz",
     "eventType": "conference"
 }
+
+###Delete event
+DELETE http://localhost:3000/events/68441aeabbe7fba56cd10692 HTTP/1.1
