@@ -12,4 +12,6 @@ router.get('/role/:roleName', userController.getUsersByRole);
 
 router.get('/:id', userController.getUserById);
 
+router.delete('/:id', userController.deleteUser);
+
 module.exports = router;
