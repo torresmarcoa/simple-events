@@ -9,7 +9,7 @@ content-type: application/json
     "name": "Lagos Tech Meetup 2025",
     "dateTime": "2025-07-12T14:00:00Z",
     "address": "Landmark Event Centre, Victoria Island, Lagos",
-    "organizer": "684169583bd02f1fef2e7437",
+    "organizer": "6844c367df68ec3f34b07c46",
     "capacity": 300,
     "assistantsNumber": 12,
     "performers": "DJ Spinall, Falz",

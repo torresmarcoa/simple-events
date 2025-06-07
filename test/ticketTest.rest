@@ -1,0 +1,33 @@
+### Create a new Ticket
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "user": "6844c367df68ec3f34b07c46",
+  "event": "6844c801463f11decbec6973",
+  "quantity": 20,
+  "price": 50,
+  "status": "booked"
+}
+
+### Get all Tickets
+GET http://localhost:3000/tickets
+
+### Get a Ticket by ID
+GET http://localhost:3000/tickets/{ticketId}
+
+### Update a Ticket by ID (PUT - full update)
+PUT http://localhost:3000/tickets/{ticketId}
+Content-Type: application/json
+
+{
+  "user": "6844c367df68ec3f34b07c46",
+  "event": "6844c801463f11decbec6973",
+  "quantity": 3,
+  "price": 75,
+  "status": "cancelled"
+}
+
+
+### Delete a Ticket by ID
+DELETE http://localhost:3000/tickets/6844cfc6178b83294da118a5
