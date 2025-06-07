@@ -5,10 +5,9 @@
     "description": "API to manage events",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "simple-events-z6w4.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http",
     "https"
   ],
   "paths": {
