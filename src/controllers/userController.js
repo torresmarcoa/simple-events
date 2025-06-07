@@ -2,6 +2,9 @@ const userService = require('../services/userService');
 const httpStatusCodes = require('../utils/httpStatusCodes');
 
 async function getAllUsers(req, res, next) {
+  //#swagger.tags = ['User']
+  /* #swagger.summary = 'Get all users' */
+  /* #swagger.description = 'Retrieves a list of all users stored in the database.' */
   try {
     const users = await userService.getAllUsers();
     res.status(httpStatusCodes.OK).json({
@@ -14,6 +17,15 @@ async function getAllUsers(req, res, next) {
 }
 
 async function getUserById(req, res, next) {
+  //#swagger.tags = ['User']
+  /* #swagger.summary = 'Get a user by ID' */
+  /* #swagger.description = 'Retrieves a user using their MongoDB ID.' */
+  /* #swagger.parameters['id'] = {
+        in: 'path',
+        description: 'User ID',
+        required: true,
+        type: 'string'
+  } */
   const id = req.params.id;
   try {
     const user = await userService.getUserById(id);
@@ -27,8 +39,10 @@ async function getUserById(req, res, next) {
 }
 
 async function getUsersByRole(req, res, next) {
-  const role = req.params.roleName; // Get role from URL parameter
-
+  //#swagger.tags = ['User']
+  /* #swagger.summary = 'Get users by role' */
+  /* #swagger.description = 'Retrieves a list of users that match the specified role.' */
+  const role = req.params.roleName;
   if (!role) {
     return res.status(httpStatusCodes.BAD_REQUEST).json({
       status: httpStatusCodes.BAD_REQUEST,
@@ -48,6 +62,21 @@ async function getUsersByRole(req, res, next) {
 }
 
 async function createUser(req, res, next) {
+  //#swagger.tags = ['User']
+  /* #swagger.summary = 'Create a new user' */
+  /* #swagger.description = 'Creates a new user with the provided information.' */
+  /* #swagger.parameters['body'] = {
+          in: 'body',
+          description: 'User data to create',
+          required: true,
+          schema: {
+            fname: 'Marco',
+            lname: 'Torres',
+            email: 'marco@example.com',
+            phone: '5551234567',
+            role: 'recruiter'
+          }
+    } */
   const user = {
     fname: req.body.fname,
     lname: req.body.lname,
@@ -63,6 +92,27 @@ async function createUser(req, res, next) {
   }
 }
 async function updateUser(req, res, next) {
+  //#swagger.tags = ['User']
+  /* #swagger.summary = 'Update a user' */
+  /* #swagger.description = 'Updates a user\'s data based on their ID.' */
+  /* #swagger.parameters['id'] = {
+          in: 'path',
+          description: 'User ID',
+          required: true,
+          type: 'string'
+    } */
+  /* #swagger.parameters['body'] = {
+          in: 'body',
+          description: 'Updated user information',
+          required: true,
+          schema: {
+            fname: 'Marco',
+            lname: 'Torres Aceves',
+            email: 'marco.updated@example.com',
+            phone: '5557654321',
+            role: 'admin'
+          }
+    } */
   const id = req.params.id;
 
   const user = {
@@ -82,11 +132,25 @@ async function updateUser(req, res, next) {
 }
 
 async function deleteUser(req, res, next) {
+  //#swagger.tags = ['User']
+  /* #swagger.summary = 'Delete a user' */
+  /* #swagger.description = 'Deletes a specific user by ID.' */
+  /* #swagger.parameters['id'] = {
+          in: 'path',
+          description: 'User ID to delete',
+          required: true,
+          type: 'string'
+    } */
   const id = req.params.id;
-
   try {
-    await userService.deleteUser(id);
-    res.status(httpStatusCodes.NO_CONTENT).send();
+    const deleted = await userService.deleteUser(id);
+    if (!deleted) {
+      return res
+        .status(httpStatusCodes.NOT_FOUND)
+        .json({ success: false, message: 'User not found' });
+    }
+
+    res.status(httpStatusCodes.OK).json({ success: true, message: 'User deleted successfully' });
   } catch (error) {
     next(error);
   }

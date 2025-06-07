@@ -17,9 +17,7 @@ app
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
   })
-  .use('/', require('./src/routes'))
-  .use('/users', require('./src/routes/userRoutes'))
-  .use('/events', require('./src/routes/eventRoutes'));
+  .use('/', require('./src/routes'));
 
 //Error handler
 app.use((err, req, res, next) => {

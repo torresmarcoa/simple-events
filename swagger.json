@@ -1,0 +1,408 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Simple Events",
+    "description": "API to manage events",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Welcome Message"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/users/": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Create a new user",
+        "description": "Creates a new user with the provided information.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User data to create",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fname": {
+                  "type": "string",
+                  "example": "Marco"
+                },
+                "lname": {
+                  "type": "string",
+                  "example": "Torres"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "marco@example.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "5551234567"
+                },
+                "role": {
+                  "type": "string",
+                  "example": "organizer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get all users",
+        "description": "Retrieves a list of all users stored in the database.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update a user",
+        "description": "Updates a user\\'s data based on their ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated user information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fname": {
+                  "type": "string",
+                  "example": "Marco"
+                },
+                "lname": {
+                  "type": "string",
+                  "example": "Torres Aceves"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "marco.updated@example.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "5557654321"
+                },
+                "role": {
+                  "type": "string",
+                  "example": "admin"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get a user by ID",
+        "description": "Retrieves a user using their MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delete a user",
+        "description": "Deletes a specific user by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User ID to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/users/role/{roleName}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get users by role",
+        "description": "Retrieves a list of users that match the specified role.",
+        "parameters": [
+          {
+            "name": "roleName",
+            "description": "User role to filter by (e.g. organizer, attendee)",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/events/": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Create a new event",
+        "description": "Creates a new event with the provided data.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "New event data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Music Festival"
+                },
+                "dateTime": {
+                  "type": "string",
+                  "example": "2025-07-01T20:00:00Z"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "123 Main St, Cityville"
+                },
+                "organizer": {
+                  "type": "string",
+                  "example": "684169583bd02f1fef2e7437"
+                },
+                "capacity": {
+                  "type": "number",
+                  "example": 500
+                },
+                "assistantsNumber": {
+                  "type": "number",
+                  "example": 150
+                },
+                "performers": {
+                  "type": "string",
+                  "example": "performer 1"
+                },
+                "eventType": {
+                  "type": "string",
+                  "example": "concert"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get all events",
+        "description": "Retrieves a list of all events stored in the database.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/events/{id}": {
+      "put": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Update an existing event",
+        "description": "Updates an event based on its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the event to update"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated event data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Updated Event Name"
+                },
+                "dateTime": {
+                  "type": "string",
+                  "example": "2025-08-15T18:30:00Z"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "456 Updated Ave"
+                },
+                "organizer": {
+                  "type": "string",
+                  "example": "684169583bd02f1fef2e7437"
+                },
+                "capacity": {
+                  "type": "number",
+                  "example": 300
+                },
+                "assistantsNumber": {
+                  "type": "number",
+                  "example": 200
+                },
+                "performers": {
+                  "type": "string",
+                  "example": "performer x"
+                },
+                "eventType": {
+                  "type": "string",
+                  "example": "Seminar"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get an event by ID",
+        "description": "Retrieves the details of a specific event by its MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB ObjectId of the event"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Delete an event",
+        "description": "Deletes a specific event by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the event to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  }
+}
