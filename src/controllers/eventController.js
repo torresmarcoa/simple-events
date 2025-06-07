@@ -11,7 +11,6 @@ async function getAllEvents(req, res, next) {
   } catch (error) {
     next(error);
   }
-
 }
 
 async function getEventById(req, res, next) {
@@ -75,9 +74,21 @@ async function updateEvent(req, res, next) {
   }
 }
 
+async function deleteEvent(req, res, next) {
+  const id = req.params.id;
+
+  try {
+    await eventService.deleteEvent(id);
+    res.status(httpStatusCodes.NO_CONTENT).send();
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   createEvent,
   updateEvent,
   getAllEvents,
-  getEventById
+  getEventById,
+  deleteEvent
 };

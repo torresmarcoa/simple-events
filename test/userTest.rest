@@ -27,3 +27,6 @@ GET http://localhost:3000/users/
 
 ###Get user by ID
 GET http://localhost:3000/users/68409ca1e94c31448f774c48
+
+###Delete user
+DELETE  http://localhost:3000/users/68409ca1e94c31448f774c48 HTTP/1.1

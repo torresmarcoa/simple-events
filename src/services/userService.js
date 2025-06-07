@@ -5,8 +5,7 @@ const httpStatusCodes = require('../utils/httpStatusCodes');
 
 async function getAllUsers() {
   try {
-    const users = await User.find()
-      .sort({ fname: 1 }); // Sort by first name ascending 
+    const users = await User.find().sort({ fname: 1 }); // Sort by first name ascending
     return users;
   } catch (error) {
     throw createError(httpStatusCodes.INTERNAL_SERVER_ERROR, 'Error fetching users');
@@ -31,8 +30,7 @@ async function getUserById(id) {
 
 async function getUsersByRole(role) {
   try {
-    const users = await User.find({ role: role })
-      .sort({ fname: 1 }); // Sort by first name ascending  
+    const users = await User.find({ role: role }).sort({ fname: 1 }); // Sort by first name ascending
 
     return users;
   } catch (error) {
@@ -73,10 +71,28 @@ async function updateUser(id, data) {
   }
 }
 
+async function deleteUser(id) {
+  try {
+    const deletedUser = await User.findByIdAndDelete(id);
+
+    if (!deletedUser) {
+      throw createError(httpStatusCodes.NOT_FOUND, 'User does not exist');
+    }
+    return deletedUser;
+  } catch (error) {
+    if (error instanceof mongoose.CastError) {
+      throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid User ID');
+      return;
+    }
+    throw error;
+  }
+}
+
 module.exports = {
   createUser,
   updateUser,
   getAllUsers,
   getUserById,
-  getUsersByRole
+  getUsersByRole,
+  deleteUser
 };
