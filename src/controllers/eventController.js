@@ -1,7 +1,11 @@
+const { default: mongoose } = require('mongoose');
 const eventService = require('../services/eventService');
 const httpStatusCodes = require('../utils/httpStatusCodes');
 
 async function getAllEvents(req, res, next) {
+  //#swagger.tags = ['Events']
+  //#swagger.summary = 'Get all events'
+  //#swagger.description = 'Retrieves a list of all events stored in the database.'
   try {
     const events = await eventService.getAllEvents();
     res.status(httpStatusCodes.OK).json({
@@ -11,10 +15,12 @@ async function getAllEvents(req, res, next) {
   } catch (error) {
     next(error);
   }
-
 }
 
 async function getEventById(req, res, next) {
+  //#swagger.tags = ['Events']
+  //#swagger.summary = 'Get an event by ID'
+  //#swagger.description = 'Retrieves the details of a specific event by its MongoDB ID.'
   const id = req.params.id;
   try {
     const event = await eventService.getEventById(id);
@@ -35,6 +41,9 @@ async function getEventById(req, res, next) {
 }
 
 async function createEvent(req, res, next) {
+  //#swagger.tags = ['Events']
+  //#swagger.summary = 'Create a new event'
+  //#swagger.description = 'Creates a new event with the provided data.'
   const event = {
     name: req.body.name,
     dateTime: req.body.dateTime,
@@ -46,14 +55,17 @@ async function createEvent(req, res, next) {
     eventType: req.body.eventType
   };
   try {
-    await eventService.createEvent(event);
-    res.status(httpStatusCodes.CREATED).send();
+    const newEvent = await eventService.createEvent(event);
+    res.status(httpStatusCodes.CREATED).json({ success: true, data: newEvent });
   } catch (error) {
     next(error);
   }
 }
 
 async function updateEvent(req, res, next) {
+  //#swagger.tags = ['Events']
+  //#swagger.summary = 'Update an existing event'
+  //#swagger.description = 'Updates an event based on its ID.'
   const id = req.params.id;
 
   const event = {
@@ -68,8 +80,8 @@ async function updateEvent(req, res, next) {
   };
 
   try {
-    await eventService.updateUser(id, event);
-    res.status(httpStatusCodes.NO_CONTENT).send();
+    const updatedEvent = await eventService.updateEvent(id, event);
+    res.status(httpStatusCodes.OK).json({ success: true, data: updatedEvent });
   } catch (error) {
     next(error);
   }
@@ -79,5 +91,6 @@ module.exports = {
   createEvent,
   updateEvent,
   getAllEvents,
-  getEventById
+  getEventById,
+  deleteEvent
 };

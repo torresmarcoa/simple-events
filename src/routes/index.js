@@ -6,4 +6,9 @@ router.get('/', (req, res) => {
   res.send('Welcome to Simple Events');
 });
 
+router.use('/', require('./swagger'));
+
+router.use('/users', require('./userRoutes'));
+router.use('/events', require('./eventRoutes'));
+
 module.exports = router;

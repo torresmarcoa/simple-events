@@ -2,6 +2,8 @@ const userService = require('../services/userService');
 const httpStatusCodes = require('../utils/httpStatusCodes');
 
 async function getAllUsers(req, res, next) {
+  //#swagger.tags = ['User']
+  //#swagger.summary = 'Get all users'
   try {
     const users = await userService.getAllUsers();
     res.status(httpStatusCodes.OK).json({
@@ -14,6 +16,8 @@ async function getAllUsers(req, res, next) {
 }
 
 async function getUserById(req, res, next) {
+  //#swagger.tags = ['User']
+  //#swagger.summary = 'Get a user by ID'
   const id = req.params.id;
   try {
     const user = await userService.getUserById(id);
@@ -27,8 +31,8 @@ async function getUserById(req, res, next) {
 }
 
 async function getUsersByRole(req, res, next) {
-  const role = req.params.roleName; // Get role from URL parameter
-
+  //#swagger.tags = ['User']
+  //#swagger.summary = 'Get users by role'
   if (!role) {
     return res.status(httpStatusCodes.BAD_REQUEST).json({
       status: httpStatusCodes.BAD_REQUEST,
@@ -44,11 +48,12 @@ async function getUsersByRole(req, res, next) {
     });
   } catch (error) {
     next(error);
-  } 
+  }
 }
 
-
 async function createUser(req, res, next) {
+  //#swagger.tags = ['User']
+  //#swagger.summary = 'Create a new user'
   const user = {
     fname: req.body.fname,
     lname: req.body.lname,
@@ -64,6 +69,8 @@ async function createUser(req, res, next) {
   }
 }
 async function updateUser(req, res, next) {
+  //#swagger.tags = ['User']
+  //#swagger.summary = 'Update a user'
   const id = req.params.id;
 
   const user = {
@@ -87,5 +94,6 @@ module.exports = {
   updateUser,
   getAllUsers,
   getUserById,
-  getUsersByRole
+  getUsersByRole,
+  deleteUser
 };

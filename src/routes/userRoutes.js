@@ -10,6 +10,6 @@ router.get('/', userController.getAllUsers);
 
 router.get('/role/:roleName', userController.getUsersByRole);
 
-router.get('/:id', userController.getUserById); 
+router.get('/:id', userController.getUserById);
 
 module.exports = router;
