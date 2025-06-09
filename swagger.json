@@ -101,6 +101,29 @@
         "responses": {"204": {"description": "Deleted"}}
       }
     },
+    "/users/role/{roleName}": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get users by role",
+        "parameters": [
+          {
+            "name": "roleName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Role to filter users by (e.g., organizer, attendee, staff)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Users with the specified role"
+          },
+          "404": {
+            "description": "No users found with that role"
+          }
+        }
+      }
+    },
     "/comments": {
       "post": {
         "tags": ["Comment"],
