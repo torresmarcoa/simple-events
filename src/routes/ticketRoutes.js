@@ -21,6 +21,10 @@ const { isAuthenticated } = require('../middlewares/authMiddleware');
  * ============================================
  */
 
+router.get('/', ticketController.getAllTickets);
+
+router.get('/:id', ticketController.getTicketById); 
+
 router.delete('/:id', isAuthenticated, ticketController.deleteTicket);
 
 module.exports = router;
