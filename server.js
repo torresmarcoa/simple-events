@@ -1,11 +1,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongodb = require('./src/data/database');
-
+require('dotenv').config();
+const session = require('express-session');
+const passport = require('passport');
+require('./src/services/passport');
 const app = express();
+const authRoutes = require('./src/routes/authRoutes');
+const commentRoutes = require('./src/routes/commentRoutes');
+const ticketRoutes = require('./src/routes/ticketRoutes')
 
 const port = process.env.PORT || 3000;
 
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/auth', authRoutes);
 app
   .use(bodyParser.json())
   .use((req, res, next) => {
@@ -18,6 +34,10 @@ app
     next();
   })
   .use('/', require('./src/routes'));
+
+  app
+    .use('/comments', commentRoutes)
+    .use('/tickets', ticketRoutes);
 
 //Error handler
 app.use((err, req, res, next) => {
