@@ -23,8 +23,15 @@ async function getTicketById(req, res, next) {
 
 async function createTicket(req, res, next) {
   //#swagger.tags = ['Tickets']
+  const ticket = {
+    event: req.body.event,
+    buyer: req.body.buyer,
+    purchaseDate: req.body.purchaseDate,
+    seatNumber: req.body.seatNumber,
+    status: req.body.status
+  };
   try {
-    const newTicket = await ticketService.createTicket(req.body);
+    const newTicket = await ticketService.createTicket(ticket);
     res.status(httpStatusCodes.CREATED).json({ status: true, data: newTicket });
   } catch (err) {
     next(err);
