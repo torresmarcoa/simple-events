@@ -20,28 +20,33 @@ passport.deserializeUser(async (sessionUser, done) => {
   done(null, sessionUser); //return email if not yet registered
 });
 
-passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: '/auth/google/callback'
-}, async (accessToken, refreshToken, profile, done) => {
-  try {
-    //check if user exists — don't create
-    const user = await User.findOne({ googleId: profile.id });
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: '/auth/google/callback'
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        //check if user exists — don't create
+        const user = await User.findOne({ googleId: profile.id });
 
-    if (user) {
-      return done(null, user); // Already registered
+        if (user) {
+          return done(null, user); // Already registered
+        }
+
+        //Not creating the user, just sending minimal info
+        const tempUser = {
+          email: profile.emails[0].value,
+          googleId: profile.id,
+          oauthOnly: true
+        };
+
+        return done(null, tempUser); // Not in DB
+      } catch (err) {
+        return done(err, null);
+      }
     }
-
-    //Not creating the user, just sending minimal info
-    const tempUser = {
-      email: profile.emails[0].value,
-      googleId: profile.id,
-      oauthOnly: true,
-    };
-
-    return done(null, tempUser); // Not in DB
-  } catch (err) {
-    return done(err, null);
-  }
-}));
+  )
+);

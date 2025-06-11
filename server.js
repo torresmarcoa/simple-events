@@ -8,15 +8,17 @@ require('./src/services/passport');
 const app = express();
 const authRoutes = require('./src/routes/authRoutes');
 const commentRoutes = require('./src/routes/commentRoutes');
-const ticketRoutes = require('./src/routes/ticketRoutes')
+const ticketRoutes = require('./src/routes/ticketRoutes');
 
 const port = process.env.PORT || 3000;
 
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -34,10 +36,6 @@ app
     next();
   })
   .use('/', require('./src/routes'));
-
-  app
-    .use('/comments', commentRoutes)
-    .use('/tickets', ticketRoutes);
 
 //Error handler
 app.use((err, req, res, next) => {

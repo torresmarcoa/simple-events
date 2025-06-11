@@ -2,6 +2,7 @@ const ticketService = require('../services/ticketService');
 const httpStatusCodes = require('../utils/httpStatusCodes');
 
 async function getAllTickets(req, res, next) {
+  //#swagger.tags = ['Tickets']
   try {
     const tickets = await ticketService.getAllTickets();
     res.status(httpStatusCodes.OK).json({ status: true, data: tickets });
@@ -11,6 +12,7 @@ async function getAllTickets(req, res, next) {
 }
 
 async function getTicketById(req, res, next) {
+  //#swagger.tags = ['Tickets']
   try {
     const ticket = await ticketService.getTicketById(req.params.id);
     res.status(httpStatusCodes.OK).json({ status: true, data: ticket });
@@ -20,6 +22,7 @@ async function getTicketById(req, res, next) {
 }
 
 async function createTicket(req, res, next) {
+  //#swagger.tags = ['Tickets']
   try {
     const newTicket = await ticketService.createTicket(req.body);
     res.status(httpStatusCodes.CREATED).json({ status: true, data: newTicket });
@@ -29,6 +32,7 @@ async function createTicket(req, res, next) {
 }
 
 async function updateTicket(req, res, next) {
+  //#swagger.tags = ['Tickets']
   try {
     await ticketService.updateTicket(req.params.id, req.body);
     res.status(httpStatusCodes.NO_CONTENT).send();
@@ -38,6 +42,7 @@ async function updateTicket(req, res, next) {
 }
 
 async function deleteTicket(req, res, next) {
+  //#swagger.tags = ['Tickets']
   try {
     await ticketService.deleteTicket(req.params.id);
     res.status(httpStatusCodes.OK).json({ success: true, message: 'Ticket deleted successfully' });

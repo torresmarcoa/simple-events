@@ -114,5 +114,7 @@ router.use('/', require('./swagger'));
 router.use('/users', require('./userRoutes'));
 router.use('/events', require('./eventRoutes'));
 router.use('/auth', require('./authRoutes'));
+router.use('/tickets', require('./ticketRoutes'));
+router.use('/comments', require('./commentRoutes'));
 
 module.exports = router;
