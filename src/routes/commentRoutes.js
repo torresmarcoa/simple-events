@@ -21,6 +21,10 @@ const { isAuthenticated } = require('../middlewares/authMiddleware');
  * ============================================
  */
 
+router.get('/', commentController.getAllComments);
+
+router.get('/:id', commentController.getCommentById);
+
 router.delete('/:id', isAuthenticated, commentController.deleteComment);
 
 module.exports = router;
