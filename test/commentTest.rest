@@ -9,7 +9,14 @@ Content-Type: application/json
 }
 
 ###
+PUT http://localhost:3000/comments/6844cadcae09f337dcfc8995
+Content-Type: application/json
 
+{
+    "content": "This event looks great! Can't wait.",
+    "author": "6844c367df68ec3f34b07c46",
+    "event": "6844c801463f11decbec6973"
+}
 
 GET http://localhost:3000/comments
 
