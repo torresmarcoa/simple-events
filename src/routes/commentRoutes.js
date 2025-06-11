@@ -20,6 +20,7 @@ const { isAuthenticated } = require('../middlewares/authMiddleware');
  * Don't forget to apply it consistently across routes that need protection!
  * ============================================
  */
+router.post('/', isAuthenticated, commentController.createComment);
 
 router.get('/', commentController.getAllComments);
 
