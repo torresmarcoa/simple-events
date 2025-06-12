@@ -5,6 +5,8 @@ async function getAllUsers(req, res, next) {
   //#swagger.tags = ['User']
   /* #swagger.summary = 'Get all users' */
   /* #swagger.description = 'Retrieves a list of all users stored in the database.' */
+  /* #swagger.responses[200] = { description: 'List of users retrieved successfully' } */
+  /* #swagger.responses[500] = { description: 'Server error while retrieving users' } */
   try {
     const users = await userService.getAllUsers();
     res.status(httpStatusCodes.OK).json({
@@ -21,11 +23,14 @@ async function getUserById(req, res, next) {
   /* #swagger.summary = 'Get a user by ID' */
   /* #swagger.description = 'Retrieves a user using their MongoDB ID.' */
   /* #swagger.parameters['id'] = {
-        in: 'path',
-        description: 'User ID',
-        required: true,
-        type: 'string'
-  } */
+          in: 'path',
+          description: 'User ID',
+          required: true,
+          type: 'string'
+    } */
+  /* #swagger.responses[200] = { description: 'User retrieved successfully' } */
+  /* #swagger.responses[404] = { description: 'User not found' } */
+  /* #swagger.responses[500] = { description: 'Server error while retrieving user' } */
   const id = req.params.id;
   try {
     const user = await userService.getUserById(id);
@@ -42,6 +47,15 @@ async function getUsersByRole(req, res, next) {
   //#swagger.tags = ['User']
   /* #swagger.summary = 'Get users by role' */
   /* #swagger.description = 'Retrieves a list of users that match the specified role.' */
+  /* #swagger.parameters['roleName'] = {
+          in: 'path',
+          description: 'User role',
+          required: true,
+          type: 'string'
+    } */
+  /* #swagger.responses[200] = { description: 'Users retrieved by role' } */
+  /* #swagger.responses[400] = {  description: 'Missing role parameter' } */
+  /* #swagger.responses[500] = { description: 'Server error while retrieving users by role' } */
   const role = req.params.roleName;
   if (!role) {
     return res.status(httpStatusCodes.BAD_REQUEST).json({
@@ -66,17 +80,21 @@ async function createUser(req, res, next) {
   /* #swagger.summary = 'Create a new user' */
   /* #swagger.description = 'Creates a new user with the provided information.' */
   /* #swagger.parameters['body'] = {
-          in: 'body',
-          description: 'User data to create',
-          required: true,
-          schema: {
-            fname: 'Marco',
-            lname: 'Torres',
-            email: 'marco@example.com',
-            phone: '5551234567',
-            role: 'recruiter'
-          }
+            in: 'body',
+            description: 'User data to create',
+            required: true,
+            schema: {
+              fname: 'Marco',
+              lname: 'Torres',
+              email: 'marco@example.com',
+              phone: '5551234567',
+              role: 'attendee'
+            }
     } */
+  /* #swagger.responses[201] = {  description: 'User created successfully' } */
+  /* #swagger.responses[400] = { description: 'Invalid user data' } */
+  /* #swagger.responses[409] = { description: 'User already exists' } */
+  /* #swagger.responses[500] = { description: 'Server error while creating user' } */
   const user = {
     fname: req.body.fname,
     lname: req.body.lname,
@@ -110,9 +128,12 @@ async function updateUser(req, res, next) {
             lname: 'Torres Aceves',
             email: 'marco.updated@example.com',
             phone: '5557654321',
-            role: 'admin'
+            role: 'organizer'
           }
     } */
+  /* #swagger.responses[204] = { description: 'User updated successfully (no content returned)' } */
+  /* #swagger.responses[400] = { description: 'Invalid update data' } */
+  /* #swagger.responses[500] = { description: 'Server error while updating user' } */
   const id = req.params.id;
 
   const user = {
@@ -141,6 +162,9 @@ async function deleteUser(req, res, next) {
           required: true,
           type: 'string'
     } */
+  /* #swagger.responses[200] = { description: 'User deleted successfully' } */
+  /* #swagger.responses[404] = { description: 'User not found' } */
+  /* #swagger.responses[500] = { description: 'Server error while deleting user' } */
   const id = req.params.id;
   try {
     const deleted = await userService.deleteUser(id);
