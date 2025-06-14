@@ -5,7 +5,8 @@ const httpStatusCodes = require('../utils/httpStatusCodes');
 
 async function getAllTickets() {
   try {
-    return await Ticket.find().populate('user', 'fname lname').populate('event', 'title');
+    const tickets = await Ticket.find().sort({ buyer: 1 });
+    return tickets;
   } catch (err) {
     throw createError(httpStatusCodes.INTERNAL_SERVER_ERROR, 'Error fetching tickets');
   }

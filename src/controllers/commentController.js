@@ -96,7 +96,7 @@ async function updateComment(req, res, next) {
           content: 'Updated comment content'
         }
   } */
-  /* #swagger.responses[204] = { description: 'Comment updated successfully' } */
+  /* #swagger.responses[200] = { description: 'Comment updated successfully' } */
   /* #swagger.responses[400] = { description: 'Invalid input data' } */
   /* #swagger.responses[404] = { description: 'Comment not found' } */
   /* #swagger.responses[500] = { description: 'Server error' } */
@@ -119,7 +119,7 @@ async function updateComment(req, res, next) {
     }
 
     // No content to return, just status
-    res.status(httpStatusCodes.NO_CONTENT).send();
+    res.status(httpStatusCodes.OK).json({ success: true, data: updatedComment });
   } catch (err) {
     next(err);
   }

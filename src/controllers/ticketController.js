@@ -1,6 +1,8 @@
 const ticketService = require('../services/ticketService');
 const httpStatusCodes = require('../utils/httpStatusCodes');
 
+    
+
 async function getAllTickets(req, res, next) {
   //#swagger.tags = ['Tickets']
   /* #swagger.summary = 'Get all tickets' */
@@ -9,6 +11,7 @@ async function getAllTickets(req, res, next) {
   /* #swagger.responses[500] = { description: 'Server error while retrieving tickets' } */
   try {
     const tickets = await ticketService.getAllTickets();
+    console.log(tickets);
     res.status(httpStatusCodes.OK).json({ status: true, data: tickets });
   } catch (err) {
     next(err);
@@ -45,9 +48,9 @@ async function createTicket(req, res, next) {
         required: true,
         schema: {
           event: '60f1a0f1f1a0f1a0f1a0f1a0',
-          buyer: 'John Doe',
+          buyer: '68446494699c448035392728',
           purchaseDate: '2025-06-10T18:00:00Z',
-          seatNumber: 'A12',
+          seatNumber: 12,
           status: 'active'
         }
   } */
