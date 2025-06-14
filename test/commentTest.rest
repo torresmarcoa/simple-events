@@ -1,7 +1,6 @@
 POST http://localhost:3000/comments
 Content-Type: application/json
 
-
 {
     "content": "This event looks gnally! Can't wait to pull up.",
   "author": "6844c367df68ec3f34b07c46",  
