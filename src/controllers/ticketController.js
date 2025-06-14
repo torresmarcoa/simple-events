@@ -95,12 +95,10 @@ async function updateTicket(req, res, next) {
   try {
     // Validate input
     if (!req.body || (!req.body.buyer && !req.body.seatNumber && !req.body.status)) {
-      return res
-        .status(httpStatusCodes.BAD_REQUEST)
-        .json({
-          success: false,
-          message: 'At least one field (buyer, seatNumber, or status) is required.'
-        });
+      return res.status(httpStatusCodes.BAD_REQUEST).json({
+        success: false,
+        message: 'At least one field (buyer, seatNumber, or status) is required.'
+      });
     }
 
     const updatedTicket = await ticketService.updateTicket(req.params.id, req.body);
