@@ -93,6 +93,8 @@ async function updateComment(req, res, next) {
         in: 'body',
         required: true,
         schema: {
+          event: '60f1a0f1f1a0f1a0f1a0f1a0',
+          author: '60f1a0f1f1a0f1a0f1a0f1a1',
           content: 'Updated comment content'
         }
   } */

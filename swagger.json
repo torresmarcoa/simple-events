@@ -5,31 +5,10 @@
     "description": "API to manage events",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "simple-events-z6w4.onrender.com",
   "basePath": "/",
-  "schemes": ["http", "https"],
+  "schemes": ["https"],
   "paths": {
-    "/": {
-      "get": {
-        "tags": ["Welcome Message"],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/users/": {
       "post": {
         "tags": ["User"],
@@ -443,36 +422,6 @@
         }
       }
     },
-    "/auth/google": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/auth/google/callback": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/auth/logout": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/tickets/": {
       "post": {
         "tags": ["Tickets"],
@@ -584,13 +533,17 @@
             "schema": {
               "type": "object",
               "properties": {
+                "event": {
+                  "type": "string",
+                  "example": "60f1a0f1f1a0f1a0f1a0f1a0"
+                },
                 "buyer": {
                   "type": "string",
-                  "example": "Jane Smith"
+                  "example": "68446494699c448035392728"
                 },
                 "seatNumber": {
-                  "type": "string",
-                  "example": "B5"
+                  "type": "number",
+                  "example": 5
                 },
                 "status": {
                   "type": "string",
@@ -750,6 +703,14 @@
             "schema": {
               "type": "object",
               "properties": {
+                "event": {
+                  "type": "string",
+                  "example": "60f1a0f1f1a0f1a0f1a0f1a0"
+                },
+                "author": {
+                  "type": "string",
+                  "example": "60f1a0f1f1a0f1a0f1a0f1a1"
+                },
                 "content": {
                   "type": "string",
                   "example": "Updated comment content"

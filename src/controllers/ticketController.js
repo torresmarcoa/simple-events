@@ -86,8 +86,9 @@ async function updateTicket(req, res, next) {
         in: 'body',
         required: true,
         schema: {
-          buyer: 'Jane Smith',
-          seatNumber: 'B5',
+          event: '60f1a0f1f1a0f1a0f1a0f1a0',
+          buyer: '68446494699c448035392728',
+          seatNumber: 5,
           status: 'cancelled'
         }
   } */

@@ -5,7 +5,8 @@ const httpStatusCodes = require('../utils/httpStatusCodes');
 
 async function getAllComments() {
   try {
-    return await Comment.find().populate('author', 'fname lname').populate('event', 'title');
+    const comment = await Comment.find().sort({ fname: 1 });
+    return comment;
   } catch (err) {
     throw createError(httpStatusCodes.INTERNAL_SERVER_ERROR, 'Error fetching comments');
   }
@@ -13,14 +14,17 @@ async function getAllComments() {
 
 async function getCommentById(id) {
   try {
-    const comment = await Comment.findById(id).populate('author').populate('event');
-    if (!comment) throw createError(httpStatusCodes.NOT_FOUND, 'Comment not found');
-    return comment;
-  } catch (err) {
-    if (err instanceof mongoose.CastError) {
-      throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid comment ID');
+    const comment = await Comment.findById(id);
+
+    if (!comment) {
+      throw createError(httpStatusCodes.NOT_FOUND, 'User does not exist');
     }
-    throw err;
+    return comment;
+  } catch (error) {
+    if (error instanceof mongoose.CastError) {
+      throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid user ID');
+    }
+    throw error;
   }
 }
 

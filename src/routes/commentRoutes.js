@@ -39,13 +39,6 @@ router.put(
   validateComment,
   commentController.updateComment
 );
-router.put(
-  '/:id',
-  isAuthenticated,
-  commentValidationRules,
-  validateComment,
-  commentController.updateComment
-);
 
 router.delete('/:id', isAuthenticated, commentController.deleteComment);
 

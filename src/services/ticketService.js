@@ -14,14 +14,17 @@ async function getAllTickets() {
 
 async function getTicketById(id) {
   try {
-    const ticket = await Ticket.findById(id).populate('user').populate('event');
-    if (!ticket) throw createError(httpStatusCodes.NOT_FOUND, 'Ticket not found');
+    const ticket = await Ticket.findById(id);
+
+    if (!ticket) {
+      throw createError(httpStatusCodes.NOT_FOUND, 'Ticket does not exist');
+    }
     return ticket;
-  } catch (err) {
-    if (err instanceof mongoose.CastError) {
+  } catch (error) {
+    if (error instanceof mongoose.CastError) {
       throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid ticket ID');
     }
-    throw err;
+    throw error;
   }
 }
 

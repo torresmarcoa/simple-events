@@ -9,7 +9,7 @@ const ticketSchema = new mongoose.Schema(
     status: { type: String, enum: ['active', 'used', 'cancelled'], default: 'active' }
   },
   {
-    collation: 'tickets',
+    collection: 'tickets',
     timestamps: true
   }
 );
