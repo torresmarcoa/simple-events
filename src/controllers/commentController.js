@@ -82,7 +82,18 @@ async function updateComment(req, res, next) {
   /* #swagger.responses[404] = { description: 'Comment not found' } */
   /* #swagger.responses[500] = { description: 'Server error' } */
   try {
-    await commentService.updateComment(req.params.id, req.body);
+    // Validate input
+    if (!req.body || !req.body.content) {
+      return res.status(httpStatusCodes.BAD_REQUEST).json({ success: false, message: 'Content is required.' });
+    }
+
+    const updatedComment = await commentService.updateComment(req.params.id, req.body);
+
+    if (!updatedComment) {
+      return res.status(httpStatusCodes.NOT_FOUND).json({ success: false, message: 'Comment not found.' });
+    }
+
+    // No content to return, just status
     res.status(httpStatusCodes.NO_CONTENT).send();
   } catch (err) {
     next(err);

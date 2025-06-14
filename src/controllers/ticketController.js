@@ -93,7 +93,17 @@ async function updateTicket(req, res, next) {
   /* #swagger.responses[404] = { description: 'Ticket not found' } */
   /* #swagger.responses[500] = { description: 'Server error while updating ticket' } */
   try {
-    await ticketService.updateTicket(req.params.id, req.body);
+    // Validate input
+    if (!req.body || (!req.body.buyer && !req.body.seatNumber && !req.body.status)) {
+      return res.status(httpStatusCodes.BAD_REQUEST).json({ success: false, message: 'At least one field (buyer, seatNumber, or status) is required.' });
+    }
+
+    const updatedTicket = await ticketService.updateTicket(req.params.id, req.body);
+
+    if (!updatedTicket) {
+      return res.status(httpStatusCodes.NOT_FOUND).json({ success: false, message: 'Ticket not found.' });
+    }
+
     res.status(httpStatusCodes.NO_CONTENT).send();
   } catch (err) {
     next(err);
