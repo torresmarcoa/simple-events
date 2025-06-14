@@ -1,16 +1,9 @@
 const { body, validationResult } = require('express-validator');
 
 const commentValidationRules = [
-  body('content')
-    .trim()
-    .notEmpty()
-    .withMessage('Content is required'),
-  body('author')
-    .notEmpty()
-    .withMessage('Author ID is required'),
-  body('event')
-    .notEmpty()
-    .withMessage('Event ID is required')
+  body('content').trim().notEmpty().withMessage('Content is required'),
+  body('author').notEmpty().withMessage('Author ID is required'),
+  body('event').notEmpty().withMessage('Event ID is required')
 ];
 
 function validateComment(req, res, next) {
