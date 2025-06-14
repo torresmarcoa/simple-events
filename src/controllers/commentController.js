@@ -30,6 +30,9 @@ async function getCommentById(req, res, next) {
   /* #swagger.responses[500] = { description: 'Server error' } */
   try {
     const comment = await commentService.getCommentById(req.params.id);
+    if (!comment) {
+      return res.status(httpStatusCodes.NOT_FOUND).json({ status: false, message: 'Comment not found.' });
+    }
     res.status(httpStatusCodes.OK).json({ status: true, data: comment });
   } catch (err) {
     next(err);
@@ -53,6 +56,18 @@ async function createComment(req, res, next) {
   /* #swagger.responses[400] = { description: 'Invalid input data' } */
   /* #swagger.responses[500] = { description: 'Server error' } */
   try {
+    // Validate input
+    if (
+      !req.body ||
+      typeof req.body.event !== 'string' ||
+      typeof req.body.author !== 'string' ||
+      typeof req.body.content !== 'string' ||
+      !req.body.event.trim() ||
+      !req.body.author.trim() ||
+      !req.body.content.trim()
+    ) {
+      return res.status(httpStatusCodes.BAD_REQUEST).json({ status: false, message: 'Event, author, and content are required.' });
+    }
     const newComment = await commentService.createComment(req.body);
     res.status(httpStatusCodes.CREATED).json({ status: true, data: newComment });
   } catch (err) {
@@ -83,11 +98,11 @@ async function updateComment(req, res, next) {
   /* #swagger.responses[500] = { description: 'Server error' } */
   try {
     // Validate input
-    if (!req.body || !req.body.content) {
+    if (!req.body || typeof req.body.content !== 'string' || !req.body.content.trim()) {
       return res.status(httpStatusCodes.BAD_REQUEST).json({ success: false, message: 'Content is required.' });
     }
 
-    const updatedComment = await commentService.updateComment(req.params.id, req.body);
+    const updatedComment = await commentService.updateComment(req.params.id, { content: req.body.content });
 
     if (!updatedComment) {
       return res.status(httpStatusCodes.NOT_FOUND).json({ success: false, message: 'Comment not found.' });
@@ -112,13 +127,17 @@ async function deleteComment(req, res, next) {
   } */
   /* #swagger.responses[200] = { description: 'Comment deleted successfully' } */
   /* #swagger.responses[404] = { description: 'Comment not found' } */
-  /* #swagger.responses[500] = { description: 'Server error' } */ try {
-    await commentService.deleteComment(req.params.id);
+  /* #swagger.responses[500] = { description: 'Server error' } */ 
+  try {
+    const deleted = await commentService.deleteComment(req.params.id);
+    if (!deleted) {
+      return res.status(httpStatusCodes.NOT_FOUND).json({ success: false, message: 'Comment not found.' });
+    }
     res.status(httpStatusCodes.OK).json({ success: true, message: 'Comment deleted successfully' });
   } catch (err) {
     next(err);
   }
-}np
+}
 
 module.exports = {
   getAllComments,
