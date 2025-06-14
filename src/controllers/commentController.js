@@ -31,7 +31,9 @@ async function getCommentById(req, res, next) {
   try {
     const comment = await commentService.getCommentById(req.params.id);
     if (!comment) {
-      return res.status(httpStatusCodes.NOT_FOUND).json({ status: false, message: 'Comment not found.' });
+      return res
+        .status(httpStatusCodes.NOT_FOUND)
+        .json({ status: false, message: 'Comment not found.' });
     }
     res.status(httpStatusCodes.OK).json({ status: true, data: comment });
   } catch (err) {
@@ -66,7 +68,9 @@ async function createComment(req, res, next) {
       !req.body.author.trim() ||
       !req.body.content.trim()
     ) {
-      return res.status(httpStatusCodes.BAD_REQUEST).json({ status: false, message: 'Event, author, and content are required.' });
+      return res
+        .status(httpStatusCodes.BAD_REQUEST)
+        .json({ status: false, message: 'Event, author, and content are required.' });
     }
     const newComment = await commentService.createComment(req.body);
     res.status(httpStatusCodes.CREATED).json({ status: true, data: newComment });
@@ -92,24 +96,30 @@ async function updateComment(req, res, next) {
           content: 'Updated comment content'
         }
   } */
-  /* #swagger.responses[204] = { description: 'Comment updated successfully' } */
+  /* #swagger.responses[200] = { description: 'Comment updated successfully' } */
   /* #swagger.responses[400] = { description: 'Invalid input data' } */
   /* #swagger.responses[404] = { description: 'Comment not found' } */
   /* #swagger.responses[500] = { description: 'Server error' } */
   try {
     // Validate input
     if (!req.body || typeof req.body.content !== 'string' || !req.body.content.trim()) {
-      return res.status(httpStatusCodes.BAD_REQUEST).json({ success: false, message: 'Content is required.' });
+      return res
+        .status(httpStatusCodes.BAD_REQUEST)
+        .json({ success: false, message: 'Content is required.' });
     }
 
-    const updatedComment = await commentService.updateComment(req.params.id, { content: req.body.content });
+    const updatedComment = await commentService.updateComment(req.params.id, {
+      content: req.body.content
+    });
 
     if (!updatedComment) {
-      return res.status(httpStatusCodes.NOT_FOUND).json({ success: false, message: 'Comment not found.' });
+      return res
+        .status(httpStatusCodes.NOT_FOUND)
+        .json({ success: false, message: 'Comment not found.' });
     }
 
     // No content to return, just status
-    res.status(httpStatusCodes.NO_CONTENT).send();
+    res.status(httpStatusCodes.OK).json({ success: true, data: updatedComment });
   } catch (err) {
     next(err);
   }
