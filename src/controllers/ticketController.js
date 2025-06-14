@@ -11,7 +11,7 @@ async function getAllTickets(req, res, next) {
   /* #swagger.responses[500] = { description: 'Server error while retrieving tickets' } */
   try {
     const tickets = await ticketService.getAllTickets();
-    console.log(tickets);
+    // console.log(tickets);
     res.status(httpStatusCodes.OK).json({ status: true, data: tickets });
   } catch (err) {
     next(err);
