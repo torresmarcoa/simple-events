@@ -14,18 +14,31 @@ const { isAuthenticated } = require('../middlewares/authMiddleware');
  *
  * This ensures only authenticated users can access the route.
  *
- * You can find the `isAuthenticated` middleware in: 
+ * You can find the `isAuthenticated` middleware in:
  *    middleware/authMiddleware.js  (or wherever it's defined)
  *
  * Don't forget to apply it consistently across routes that need protection!
  * ============================================
  */
-router.post('/', isAuthenticated, ticketController.createTicket);
+router.post(
+  '/',
+  isAuthenticated,
+  ticketValidationRules(),
+  validateTicket,
+  ticketController.createTicket
+);
 
 router.get('/', ticketController.getAllTickets);
 
-router.get('/:id', ticketController.getTicketById); 
+router.get('/:id', ticketController.getTicketById);
 
+router.put(
+  '/:id',
+  isAuthenticated,
+  ticketValidationRules(),
+  validateTicket,
+  ticketController.updateTicket
+);
 router.put(
   '/:id',
   isAuthenticated,

@@ -137,11 +137,13 @@ async function deleteComment(req, res, next) {
   } */
   /* #swagger.responses[200] = { description: 'Comment deleted successfully' } */
   /* #swagger.responses[404] = { description: 'Comment not found' } */
-  /* #swagger.responses[500] = { description: 'Server error' } */ 
+  /* #swagger.responses[500] = { description: 'Server error' } */
   try {
     const deleted = await commentService.deleteComment(req.params.id);
     if (!deleted) {
-      return res.status(httpStatusCodes.NOT_FOUND).json({ success: false, message: 'Comment not found.' });
+      return res
+        .status(httpStatusCodes.NOT_FOUND)
+        .json({ success: false, message: 'Comment not found.' });
     }
     res.status(httpStatusCodes.OK).json({ success: true, message: 'Comment deleted successfully' });
   } catch (err) {
