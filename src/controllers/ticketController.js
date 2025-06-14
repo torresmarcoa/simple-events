@@ -95,13 +95,20 @@ async function updateTicket(req, res, next) {
   try {
     // Validate input
     if (!req.body || (!req.body.buyer && !req.body.seatNumber && !req.body.status)) {
-      return res.status(httpStatusCodes.BAD_REQUEST).json({ success: false, message: 'At least one field (buyer, seatNumber, or status) is required.' });
+      return res
+        .status(httpStatusCodes.BAD_REQUEST)
+        .json({
+          success: false,
+          message: 'At least one field (buyer, seatNumber, or status) is required.'
+        });
     }
 
     const updatedTicket = await ticketService.updateTicket(req.params.id, req.body);
 
     if (!updatedTicket) {
-      return res.status(httpStatusCodes.NOT_FOUND).json({ success: false, message: 'Ticket not found.' });
+      return res
+        .status(httpStatusCodes.NOT_FOUND)
+        .json({ success: false, message: 'Ticket not found.' });
     }
 
     res.status(httpStatusCodes.NO_CONTENT).send();
