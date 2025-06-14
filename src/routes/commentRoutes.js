@@ -26,6 +26,8 @@ router.get('/', commentController.getAllComments);
 
 router.get('/:id', commentController.getCommentById);
 
+router.put('/:id', isAuthenticated, commentValidationRules(), validateComment, commentController.updateComment);
+
 router.delete('/:id', isAuthenticated, commentController.deleteComment);
 
 module.exports = router;
