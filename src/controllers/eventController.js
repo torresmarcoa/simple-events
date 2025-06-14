@@ -6,6 +6,8 @@ async function getAllEvents(req, res, next) {
   //#swagger.tags = ['Events']
   /* #swagger.summary = 'Get all events' */
   /* #swagger.description = 'Retrieves a list of all events stored in the database.' */
+  /* #swagger.responses[200] = { description: 'List of events retrieved successfully' } */
+  /* #swagger.responses[500] = { description: 'Server error while retrieving events' } */
   try {
     const events = await eventService.getAllEvents();
     res.status(httpStatusCodes.OK).json({
@@ -27,6 +29,9 @@ async function getEventById(req, res, next) {
           required: true,
           type: 'string'
     } */
+  /* #swagger.responses[200] = { description: 'Event retrieved successfully' } */
+  /* #swagger.responses[404] = { description: 'Event not found' } */
+  /* #swagger.responses[500] = { description: 'Server error while retrieving the event' } */
   const id = req.params.id;
   try {
     const event = await eventService.getEventById(id);
@@ -51,20 +56,23 @@ async function createEvent(req, res, next) {
   /* #swagger.summary = 'Create a new event' */
   /* #swagger.description = 'Creates a new event with the provided data.' */
   /* #swagger.parameters['body'] = {
-        in: 'body',
-        description: 'New event data',
-        required: true,
-        schema: {
-          name: 'Music Festival',
-          dateTime: '2025-07-01T20:00:00Z',
-          address: '123 Main St, Cityville',
-          organizer: 'EventCo',
-          capacity: 500,
-          assistantsNumber: 150,
-          performers: ['Band A', 'Artist B'],
-          eventType: 'Concert'
-        }
-  } */
+          in: 'body',
+          description: 'New event data',
+          required: true,
+          schema: {
+            name: 'Music Festival',
+            dateTime: '2025-07-01T20:00:00Z',
+            address: '123 Main St, Cityville',
+            organizer: 'EventCo',
+            capacity: 500,
+            assistantsNumber: 150,
+            performers: 'Band A',
+            eventType: 'concert'
+          }
+    } */
+  /* #swagger.responses[201] = { description: 'Event created successfully' } */
+  /* #swagger.responses[400] = { description: 'Invalid input data' } */
+  /* #swagger.responses[500] = { description: 'Server error while creating event' } */
   const event = {
     name: req.body.name,
     dateTime: req.body.dateTime,
@@ -104,10 +112,14 @@ async function updateEvent(req, res, next) {
             organizer: 'Updated Organizer',
             capacity: 300,
             assistantsNumber: 200,
-            performers: ['Performer X'],
-            eventType: 'Seminar'
+            performers: 'Performer X',
+            eventType: 'meetup'
           }
     } */
+  /* #swagger.responses[200] = { description: 'Event updated successfully' } */
+  /* #swagger.responses[400] = { description: 'Invalid input data' } */
+  /* #swagger.responses[404] = { description: 'Event not found' } */
+  /* #swagger.responses[500] = { description: 'Server error while updating event' } */
   const id = req.params.id;
 
   const event = {
@@ -139,6 +151,10 @@ async function deleteEvent(req, res, next) {
           required: true,
           type: 'string'
     } */
+  /* #swagger.responses[200] = { description: 'Event deleted successfully' } */
+  /* #swagger.responses[400] = { description: 'Invalid ID format' } */
+  /* #swagger.responses[404] = { description: 'Event not found' } */
+  /* #swagger.responses[500] = { description: 'Server error while deleting event' } */
   const id = req.params.id;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {

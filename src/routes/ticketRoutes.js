@@ -26,6 +26,8 @@ router.get('/', ticketController.getAllTickets);
 
 router.get('/:id', ticketController.getTicketById); 
 
+router.put('/:id', isAuthenticated, ticketValidationRules(), validateTicket, ticketController.updateTicket);
+
 router.delete('/:id', isAuthenticated, ticketController.deleteTicket);
 
 module.exports = router;

@@ -7,8 +7,6 @@ const passport = require('passport');
 require('./src/services/passport');
 const app = express();
 const authRoutes = require('./src/routes/authRoutes');
-const commentRoutes = require('./src/routes/commentRoutes');
-const ticketRoutes = require('./src/routes/ticketRoutes');
 
 const port = process.env.PORT || 3000;
 
