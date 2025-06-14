@@ -49,7 +49,7 @@ async function deleteComment(req, res, next) {
   } catch (err) {
     next(err);
   }
-}
+}np
 
 module.exports = {
   getAllComments,
