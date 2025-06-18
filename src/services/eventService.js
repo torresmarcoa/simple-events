@@ -1,4 +1,5 @@
 const Event = require('../models/eventModel');
+const User = require('../models/userModel');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 const httpStatusCodes = require('../utils/httpStatusCodes');
@@ -31,6 +32,15 @@ async function getEventById(id) {
 
 async function createEvent(data) {
   try {
+    if (!mongoose.Types.ObjectId.isValid(data.organizer)) {
+      throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid organizer ID');
+    }
+
+    const organizerExists = await User.findById(data.organizer);
+    if (!organizerExists) {
+      throw createError(httpStatusCodes.NOT_FOUND, 'Organizer not found');
+    }
+
     const existingEvent = await Event.findOne({
       dateTime: data.dateTime,
       address: data.address
@@ -49,6 +59,21 @@ async function createEvent(data) {
 
 async function updateEvent(id, data) {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid event ID');
+    }
+
+    if (data.organizer) {
+      if (!mongoose.Types.ObjectId.isValid(data.organizer)) {
+        throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid organizer ID');
+      }
+    }
+
+    const organizerExists = await User.findById(data.organizer);
+    if (!organizerExists) {
+      throw createError(httpStatusCodes.NOT_FOUND, 'Organizer not found');
+    }
+
     const event = await Event.findByIdAndUpdate(id, data, { new: true });
 
     if (!event) {
@@ -58,7 +83,6 @@ async function updateEvent(id, data) {
   } catch (error) {
     if (error instanceof mongoose.CastError) {
       throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid event ID');
-      return;
     }
     throw error;
   }

@@ -3,7 +3,7 @@ const userController = require('../controllers/userController');
 const { userValidationRules, validateUser } = require('../middlewares/userValidator');
 const { isAuthenticated } = require('../middlewares/authMiddleware');
 
-router.post('/', userValidationRules(), validateUser, userController.createUser);
+router.post('/', isAuthenticated, userValidationRules(), validateUser, userController.createUser);
 
 router.put('/:id', isAuthenticated, userValidationRules(), validateUser, userController.updateUser);
 

@@ -11,12 +11,18 @@ router.post(
   eventController.createEvent
 );
 
-router.put('/:id', eventValidationRules(), validateEvent, eventController.updateEvent);
+router.put(
+  '/:id',
+  isAuthenticated,
+  eventValidationRules(),
+  validateEvent,
+  eventController.updateEvent
+);
 
 router.get('/', eventController.getAllEvents);
 
 router.get('/:id', eventController.getEventById);
 
-router.delete('/:id', eventController.deleteEvent);
+router.delete('/:id', isAuthenticated, eventController.deleteEvent);
 
 module.exports = router;
