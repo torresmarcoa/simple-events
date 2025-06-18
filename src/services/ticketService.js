@@ -1,4 +1,6 @@
 const Ticket = require('../models/ticketModel');
+const User = require('../models/userModel');
+const Event = require('../models/eventModel');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 const httpStatusCodes = require('../utils/httpStatusCodes');
@@ -30,6 +32,24 @@ async function getTicketById(id) {
 
 async function createTicket(data) {
   try {
+    if (!mongoose.Types.ObjectId.isValid(data.buyer)) {
+      throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid buyer ID');
+    }
+
+    const buyerExists = await User.findById(data.buyer);
+    if (!buyerExists) {
+      throw createError(httpStatusCodes.NOT_FOUND, 'Buyer not found');
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(data.event)) {
+      throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid event ID');
+    }
+
+    const eventExists = await Event.findById(data.event);
+    if (!eventExists) {
+      throw createError(httpStatusCodes.NOT_FOUND, 'Event not found');
+    }
+
     return await Ticket.create(data);
   } catch (err) {
     throw err;
@@ -38,6 +58,32 @@ async function createTicket(data) {
 
 async function updateTicket(id, data) {
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid ticket ID');
+    }
+
+    if (data.buyer) {
+      if (!mongoose.Types.ObjectId.isValid(data.buyer)) {
+        throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid buyer ID');
+      }
+
+      const buyerExists = await User.findById(data.buyer);
+      if (!buyerExists) {
+        throw createError(httpStatusCodes.NOT_FOUND, 'Buyer not found');
+      }
+    }
+
+    if (data.event) {
+      if (!mongoose.Types.ObjectId.isValid(data.event)) {
+        throw createError(httpStatusCodes.BAD_REQUEST, 'Invalid event ID');
+      }
+
+      const eventExists = await Event.findById(data.event);
+      if (!eventExists) {
+        throw createError(httpStatusCodes.NOT_FOUND, 'Event not found');
+      }
+    }
+
     const ticket = await Ticket.findByIdAndUpdate(id, data, { new: true });
     if (!ticket) throw createError(httpStatusCodes.NOT_FOUND, 'Ticket not found');
     return ticket;

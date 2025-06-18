@@ -7,11 +7,15 @@
   },
   "host": "simple-events-z6w4.onrender.com",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/users/": {
       "post": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Create a new user",
         "description": "Creates a new user with the provided information.",
         "parameters": [
@@ -63,7 +67,9 @@
         }
       },
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Get all users",
         "description": "Retrieves a list of all users stored in the database.",
         "responses": {
@@ -78,7 +84,9 @@
     },
     "/users/{id}": {
       "put": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Update a user",
         "description": "Updates a user\\'s data based on their ID.",
         "parameters": [
@@ -137,7 +145,9 @@
         }
       },
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Get a user by ID",
         "description": "Retrieves a user using their MongoDB ID.",
         "parameters": [
@@ -162,7 +172,9 @@
         }
       },
       "delete": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Delete a user",
         "description": "Deletes a specific user by ID.",
         "parameters": [
@@ -192,7 +204,9 @@
     },
     "/users/role/{roleName}": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Get users by role",
         "description": "Retrieves a list of users that match the specified role.",
         "parameters": [
@@ -219,7 +233,9 @@
     },
     "/events/": {
       "post": {
-        "tags": ["Events"],
+        "tags": [
+          "Events"
+        ],
         "summary": "Create a new event",
         "description": "Creates a new event with the provided data.",
         "parameters": [
@@ -245,7 +261,7 @@
                 },
                 "organizer": {
                   "type": "string",
-                  "example": "EventCo"
+                  "example": "68446494699c448035392730"
                 },
                 "capacity": {
                   "type": "number",
@@ -283,7 +299,9 @@
         }
       },
       "get": {
-        "tags": ["Events"],
+        "tags": [
+          "Events"
+        ],
         "summary": "Get all events",
         "description": "Retrieves a list of all events stored in the database.",
         "responses": {
@@ -298,7 +316,9 @@
     },
     "/events/{id}": {
       "put": {
-        "tags": ["Events"],
+        "tags": [
+          "Events"
+        ],
         "summary": "Update an existing event",
         "description": "Updates an event based on its ID.",
         "parameters": [
@@ -331,7 +351,7 @@
                 },
                 "organizer": {
                   "type": "string",
-                  "example": "Updated Organizer"
+                  "example": "68446494699c448035392730"
                 },
                 "capacity": {
                   "type": "number",
@@ -369,7 +389,9 @@
         }
       },
       "get": {
-        "tags": ["Events"],
+        "tags": [
+          "Events"
+        ],
         "summary": "Get an event by ID",
         "description": "Retrieves the details of a specific event by its MongoDB ID.",
         "parameters": [
@@ -394,7 +416,9 @@
         }
       },
       "delete": {
-        "tags": ["Events"],
+        "tags": [
+          "Events"
+        ],
         "summary": "Delete an event",
         "description": "Deletes a specific event by ID.",
         "parameters": [
@@ -424,7 +448,9 @@
     },
     "/tickets/": {
       "post": {
-        "tags": ["Tickets"],
+        "tags": [
+          "Tickets"
+        ],
         "summary": "Create a new ticket",
         "description": "Creates a new ticket for an event.",
         "parameters": [
@@ -475,7 +501,9 @@
         }
       },
       "get": {
-        "tags": ["Tickets"],
+        "tags": [
+          "Tickets"
+        ],
         "summary": "Get all tickets",
         "description": "Retrieves all tickets stored in the database.",
         "responses": {
@@ -490,7 +518,9 @@
     },
     "/tickets/{id}": {
       "get": {
-        "tags": ["Tickets"],
+        "tags": [
+          "Tickets"
+        ],
         "summary": "Get ticket by ID",
         "description": "Retrieves a ticket by its MongoDB ID.",
         "parameters": [
@@ -515,7 +545,9 @@
         }
       },
       "put": {
-        "tags": ["Tickets"],
+        "tags": [
+          "Tickets"
+        ],
         "summary": "Update a ticket",
         "description": "Updates the details of an existing ticket by ID.",
         "parameters": [
@@ -572,7 +604,9 @@
         }
       },
       "delete": {
-        "tags": ["Tickets"],
+        "tags": [
+          "Tickets"
+        ],
         "summary": "Delete a ticket",
         "description": "Deletes a ticket by its ID.",
         "parameters": [
@@ -602,7 +636,9 @@
     },
     "/comments/": {
       "post": {
-        "tags": ["Comments"],
+        "tags": [
+          "Comments"
+        ],
         "summary": "Create a new comment",
         "description": "Creates a new comment linked to an event and author.",
         "parameters": [
@@ -645,7 +681,9 @@
         }
       },
       "get": {
-        "tags": ["Comments"],
+        "tags": [
+          "Comments"
+        ],
         "summary": "Get all comments",
         "description": "Retrieves all comments from the database.",
         "responses": {
@@ -660,7 +698,9 @@
     },
     "/comments/{id}": {
       "get": {
-        "tags": ["Comments"],
+        "tags": [
+          "Comments"
+        ],
         "summary": "Get a comment by ID",
         "description": "Retrieves a comment using its MongoDB ID.",
         "parameters": [
@@ -685,7 +725,9 @@
         }
       },
       "put": {
-        "tags": ["Comments"],
+        "tags": [
+          "Comments"
+        ],
         "summary": "Update a comment",
         "description": "Updates the content of an existing comment by ID.",
         "parameters": [
@@ -738,7 +780,9 @@
         }
       },
       "delete": {
-        "tags": ["Comments"],
+        "tags": [
+          "Comments"
+        ],
         "summary": "Delete a comment",
         "description": "Deletes a comment by its ID.",
         "parameters": [
